@@ -19,5 +19,5 @@ jobs:
 
       - name: Check style project
         run: |
-          pip install pycodestyle
-          pycodestyle .
+          java -jar checkstyle-10.15.0-all.jar
+          -c /sun_checks.xml adminController.java
