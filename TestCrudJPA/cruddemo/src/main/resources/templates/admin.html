@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Title</title>
+    <link th:href="@{/css/list.css}" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container">
+    <h2 class="my-5">Пользователи</h2>
+    <table class="table table-striped sortable">
+        <thead>
+        <tr>
+            <th>Логин</th>
+            <th>Роль</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="el : ${user_list}">
+            <td th:text="${el.username}"></td>
+            <td>
+                <div th:each="role : ${el.roles}">
+                    <p th:text="${role}"></p>
+                </div>
+            </td>
+            <td>
+                <a class="btn btn-primary" th:href="'/admin/'+${el.ID_User}">Подробнее...</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div th:switch="${posts}" class="container my-5">
+    <div class="row">
+        <div class="col-md-6">
+
+            <div th:case="*">
+                <h2 class="my-5">Должность</h2>
+                <table class="table table-striped table-bordered sortable">
+                    <thead>
+                    <tr>
+                        <th>Название</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="post : ${posts}">
+                        <td th:text="${post.getPostname()}"></td>
+                        <td><a class="btn btn-primary" th:href="@{/editpost/{id}(id=${post.id})}">Редактировать</a></td>
+                        <td><a class="btn btn-danger" th:href="@{/deletepost/{id}(id=${post.id})}">Удалить</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="my-5"><a class="btn btn-success" href="/newpost">Добавить должность</a></p>
+        </div>
+    </div>
+</div>
+
+<div th:switch="${employees}" class="container my-5">
+    <div class="row">
+        <div class="col-md-6">
+
+            <div th:case="*">
+                <h2 class="my-5">Сотрудник</h2>
+                <table class="table table-bordered table-striped sortable">
+                    <thead>
+                    <tr>
+                        <th>Имя</th>
+                        <th>Фамилия</th>
+                        <th>Отчество</th>
+
+                        <th>Название торгового центра</th>
+                        <th>Название должности</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="employee : ${employees}">
+                        <td th:text="${employee.getFirstname()}"></td>
+                        <td th:text="${employee.getSecondname()}"></td>
+                        <td th:text="${employee.getMiddlename()}"></td>
+                        <td th:text="${employee.getWarehouse().getWarehousename()}"></td>
+                        <td th:text="${employee.getPost().getPostname()}"></td>
+                        <td><a class="btn btn-primary" th:href="@{/editemployee/{id}(id=${employee.id})}">Редактировать</a></td>
+                        <td><a class="btn btn-danger" th:href="@{/deleteemployee/{id}(id=${employee.id})}">Удалить</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="my-5"><a class="btn btn-success" href="/newemployee">Добавить сотрудника</a></p>
+        </div>
+    </div>
+</div>
+
+<div th:switch="${warehouses}" class="container my-5">
+    <div class="row">
+        <div class="col-md-6">
+
+            <div th:case="*">
+                <h2 class="my-5">Торговый центер</h2>
+                <table class="table table-bordered table-striped sortable">
+                    <thead>
+                    <tr>
+                        <th>Название</th>
+                        <th>Адресс</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="warehouse : ${warehouses}">
+                        <td th:text="${warehouse.getWarehousename()}"></td>
+                        <td th:text="${warehouse.getAddress()}"></td>
+                        <td><a class="btn btn-primary" th:href="@{/editwarehouse/{id}(id=${warehouse.id})}">Редактировать</a></td>
+                        <td><a class="btn btn-danger" th:href="@{/deletewarehouse/{id}(id=${warehouse.id})}">Удалить</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="my-5"><a class="btn btn-success" href="/newwarehouse">Добавить торговый центер</a></p>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div th:switch="${suppliers}" class="container my-5">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div th:case="*">
+                            <h2 class="my-5">Магазин</h2>
+                            <table class="table table-bordered table-striped sortable">
+                                <thead>
+                                <tr>
+                                    <th>Название</th>
+                                    <th>Описание</th>
+                                    <th>Ссылка</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="supplier : ${suppliers}">
+                                    <td th:text="${supplier.getSuppliername()}"></td>
+                                    <td th:text="${supplier.getPhonenumber()}"></td>
+                                    <td th:text="${supplier.getInn()}"></td>
+                                    <td><a class="btn btn-primary" th:href="@{/editsupplier/{id}(id=${supplier.id})}">Редактировать</a></td>
+                                    <td><a class="btn btn-danger" th:href="@{/deletesupplier/{id}(id=${supplier.id})}">Удалить</a></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="my-5"><a class="btn btn-success" href="/newsupplier">Добавить магазин</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+</body>
+</html>

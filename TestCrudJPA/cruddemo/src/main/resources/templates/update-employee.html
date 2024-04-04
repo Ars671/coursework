@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Update Employee</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h2>Обновление сотрудника</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <form action="#" th:action="@{/updateemployee/{id}(id=${employees.getId()})}" th:object="${employees}" method="Post">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="name">Имя</label>
+                        <input type="text" th:field="*{firstname}" id="name" class="form-control" placeholder="Имя">
+                        <span th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="name1">Фамилия</label>
+                        <input type="text" th:field="*{secondname}" id="name1" class="form-control" placeholder="Фамилия">
+                        <span th:if="${#fields.hasErrors('secondname')}" th:errors="*{secondname}"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="name2">Отчество</label>
+                        <input type="text" th:field="*{middlename}" id="name2" class="form-control" placeholder="Отчество">
+                        <span th:if="${#fields.hasErrors('middlename')}" th:errors="*{middlename}"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="name3">Логин</label>
+                        <input type="text" th:field="*{login}" id="name3" class="form-control" placeholder="Логин">
+                        <span th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="name4">Пароль</label>
+                        <input type="text" th:field="*{passwordemp}" id="name4" class="form-control" placeholder="Пароль">
+                        <span th:if="${#fields.hasErrors('passwordemp')}" th:errors="*{passwordemp}"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="warehouse">Склад</label>
+                        <select name="warehouseid" id="warehouse" class="form-select" th:field="*{warehouse}">
+                            <option th:each="el : ${warehouses}" th:value="${el.getId()}" th:text="${el.getWarehousename()}"></option>
+                        </select>
+                        <span th:if="${#fields.hasErrors('warehouse')}" th:errors="*{warehouse}"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="post">Должность</label>
+                        <select name="postid" id="post" class="form-select" th:field="*{post}">
+                            <option th:each="el : ${posts}" th:value="${el.getId()}" th:text="${el.getPostname()}"></option>
+                        </select>
+                        <span th:if="${#fields.hasErrors('post')}" th:errors="*{post}"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mt-5">
+                        <input type="submit" class="btn btn-primary" value="Обновление сотрудника">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

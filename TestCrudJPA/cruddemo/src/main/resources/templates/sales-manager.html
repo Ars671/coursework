@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Title</title>
+    <link th:href="@{/css/list.css}" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+<div th:insert="blocks/header"></div>
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div th:switch="${suppliers}" class="container my-5">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div th:case="*">
+                            <h2 class="my-5">Поставщик</h2>
+                            <table class="table table-bordered table-striped sortable">
+                                <thead>
+                                <tr>
+                                    <th>Название</th>
+                                    <th>Номер телифона</th>
+                                    <th>ИНН</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="supplier : ${suppliers}">
+                                    <td th:text="${supplier.getSuppliername()}"></td>
+                                    <td th:text="${supplier.getPhonenumber()}"></td>
+                                    <td th:text="${supplier.getInn()}"></td>
+                                    <td><a class="btn btn-primary" th:href="@{/editsupplier/{id}(id=${supplier.id})}">Редактировать</a></td>
+                                    <td><a class="btn btn-danger" th:href="@{/deletesupplier/{id}(id=${supplier.id})}">Удалить</a></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="my-5"><a class="btn btn-success" href="/newsupplier">Добавить поставщика</a></p>
+                    </div>
+                </div>
+            </div>
+            <div th:switch="${cantracts}" class="container my-5">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div th:case="*">
+                            <h2 class="my-5">Контракт</h2>
+                            <table class="table table-bordered table-striped sortable">
+                                <thead>
+                                <tr>
+                                    <th>Номер контракта</th>
+                                    <th>Дата формирования</th>
+                                    <th>Навание склада</th>
+                                    <th>Название поставщика</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="cantract : ${cantracts}">
+                                    <td th:text="${cantract.getNumbercantract()}"></td>
+                                    <td th:text="${cantract.getDateformation()}"></td>
+                                    <td th:text="${cantract.getWarehouse().getWarehousename()}"></td>
+                                    <td th:text="${cantract.getSupplier().getSuppliername()}"></td>
+                                    <td><a class="btn btn-primary" th:href="@{/editcantract/{id}(id=${cantract.id})}">Редактировать</a></td>
+                                    <td><a class="btn btn-danger" th:href="@{/deletecantract/{id}(id=${cantract.id})}">Удалить</a></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="my-5"><a class="btn btn-success" href="/newcantract">Добавить контракт</a></p>
+                    </div>
+                </div>
+            </div>
+            <div th:switch="${supplys}" class="container my-5">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div th:case="*">
+                            <h2 class="my-5">Поставка</h2>
+                            <table class="table table-bordered sortable">
+                                <thead>
+                                <tr>
+                                    <th>Номер поставки</th>
+                                    <th>Дата поставки</th>
+                                    <th>Номер контракта</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="supply : ${supplys}">
+                                    <td th:text="${supply.getNumbersupply()}"></td>
+                                    <td th:text="${supply.getQuanti()}"></td>
+                                    <td th:text="${supply.getCantract().getNumbercantract()}"></td>
+                                    <td><a class="btn btn-primary" th:href="@{/editsupply/{id}(id=${supply.id})}">Редактировать</a></td>
+                                    <td><a class="btn btn-danger" th:href="@{/deletesupply/{id}(id=${supply.id})}">Удалить</a></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="my-5"><a class="btn btn-success" href="/newsupply">Добавить поставку</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+</body>
+</html>

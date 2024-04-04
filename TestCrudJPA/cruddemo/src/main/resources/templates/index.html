@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Users</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="/static.css/Cart.css" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <style>
+            /* Стили для меню */
+
+            .map {
+                position: absolute;
+            }
+            .map svg {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+            .map svg path {
+                fill: none;
+                pointer-events: all;
+                cursor: pointer;
+            }
+            .map svg path:hover {
+                animation: hoverElement 2s linear infinite;
+            }
+            .tooltip {
+                border-radius: 5px;
+                padding: 5px;
+                font-weight: 500;
+                background: #fff;
+                color: #000;
+                font-size: 14px;
+                position: absolute;
+            }
+            @keyframes hoverElement {
+                0% {
+                    stroke: #000000;
+                }
+                50% {
+                    stroke: #fc0000;
+                }
+                100% {
+                    stroke: #000000;
+                }
+            }
+            .info__bg {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(0,0,0,0.5);
+                opacity: 0;
+                transition: 0.3s all;
+                pointer-events: none;
+                z-index: 10;
+            }
+            .info__bg.active {
+                pointer-events: all;
+                opacity: 1;
+                transition: 0.3s all;
+            }
+            .info {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: #fff;
+                border-radius: 20px;
+                padding: 25px;
+                width: 500px;
+            }
+            .info__photo {
+                width: 100%;
+                height: 100%;
+            }
+        </style>
+    </head>
+    <body>
+    <div th:insert="blocks/header"></div>
+    <a href="/admin/admin" class="btn btn-success">Страница админа</a>
+    <a href="/storekeeper" class="btn btn-success">Страница кладовщика</a>
+    <a href="/broker" class="btn btn-success">Страница менеджера по продажам</a>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+
+    <div class="map">
+        <img src="/images/kar.png">
+        <svg viewBox="0 0 1286 454">
+            <path th:each="post : ${posts[0]}" class="shop" th:data-title="${post.getPostname()}" data-photo="/images/kar.png" data-text="это место, где готовят мясо на огне и это единственный массовый ресторан быстрого питания, где подают бургеры с мраморной говядиной Блэк Ангус." stroke="#000000" stroke-width="5" d="M 310.7645,131.27446 364.442,57.821031 384.21793,72.511717 V 127.8843 l 10.92384,0.18834 -0.18834,72.32338 -37.1034,0.94171 -22.41271,-21.09432 -0.18834,-30.51142 z" />
+            <path th:each="post : ${posts[1]}" class="shop" th:data-title="${post.getPostname()}" data-photo="/images/kar.png" data-text="это место, где готовят мясо на огне и это единственный массовый ресторан быстрого питания, где подают бургеры с мраморной говядиной Блэк Ангус." stroke="#000000" stroke-width="5" d="m 399.00126,129.04947 89.09608,-0.26635 0.39953,68.32031 -89.49561,3.06309 z" />
+            <path th:each="post : ${posts[0]}" class="shop" data-title="KFC" data-photo="/images/kar.png" data-text="это место, где готовят мясо на огне и это единственный массовый ресторан быстрого питания, где подают бургеры с мраморной говядиной Блэк Ангус." stroke="#000000" stroke-width="5" d="m 494.62306,128.9163 h 75.6451 l 0.0318,75.99993 -32.2065,0.75337 -43.13035,-9.22877 z" />
+            <path th:each="post : ${posts[0]}" class="shop" data-title="Магнит" data-photo="/images/kar.png" data-text="это место, где готовят мясо на огне и это единственный массовый ресторан быстрого питания, где подают бургеры с мраморной говядиной Блэк Ангус." stroke="#000000" stroke-width="5" d="m 574.63181,129.20269 h 49.91066 l 0.0623,76.42413 -50.47445,-0.26636 z" />
+            <path th:each="post : ${posts[0]}" class="shop" data-title="Пятёрочка" data-photo="/images/kar.png" data-text="" stroke="#000000" stroke-width="5" d="m 645.91326,63.126368 0.26635,96.420862 -18.37856,-0.79906 -0.52762,-32.74729 -80.61042,-0.0942 -0.28252,-31.358935 26.01851,-31.155021 z" />
+            <path class="shop" data-title="6" data-photo="/images/kar.png" data-text="" stroke="#000000" stroke-width="5" d="m 776.16133,186.44919 61.52823,0.53271 -0.26635,-112.668581 -11.45331,0.266356 V 59.397384 h -50.60764 z" />
+            <path class="shop" data-title="7" data-photo="/images/kar.png" data-text="" stroke="#000000" stroke-width="5" d="m 842.48397,76.177811 46.6123,-0.266356 0.26635,111.070445 -47.09666,-0.14652 z" />
+            <path class="shop" data-title="8" data-photo="/images/kar.png" data-text="" stroke="#000000" stroke-width="5" d="M 964.74137,75.378743 V 59.930096 l 39.15433,0.266356 0.2664,126.519088 -111.20367,0.26636 V 76.444167 Z" />
+            <path class="shop" data-title="9" data-photo="/images/kar.png" data-text="" stroke="#000000" stroke-width="5" d="m 1105.9449,160.0908 -0.3767,-76.090214 76.467,0.376684 27.1212,32.39484 1.1301,107.7317 h -84.754 l -0.3767,-63.28295 -19.3992,-0.56503" />
+            <path class="shop" data-title="10" data-photo="/images/kar.png" data-text="" stroke="#000000" stroke-width="5" d="m 1214.0533,242.96134 65.5431,0.75336 -1.1301,-90.40421 -64.413,0.75336 z" />
+            <path class="shop" data-title="11" data-photo="/images/kar.png" data-text="" stroke="#000000" stroke-width="5" d="m 1214.43,249.74165 64.2247,0.37669 0.1204,32.48536 -64.4582,-0.26636 z" />
+            <path class="shop" data-title="12-13" data-photo="/images/kar.png" data-text="" stroke="#000000" stroke-width="5" d="m 1213.7842,288.99624 64.9909,0.53271 v 94.82273 l -78.3087,0.53271 0.2664,41.55154 -39.4207,0.53271 -0.2664,-44.74781 -96.1545,-33.02814 0.2664,-90.02832 h 89.7619 l 1.3318,67.12171 58.8647,0.26635 z" />
+            <path class="shop" data-title="14" data-photo="/images/kar.png" data-text="" stroke="#000000" stroke-width="5" d="m 1011.7739,224.50381 8.6637,12.43058 0.3767,48.59227 -10.0763,-0.28252 v -10.7355 l -53.96003,0.37669 v -50.56986 z" />
+            <path class="shop" data-title="15" data-photo="/images/kar.png" data-text="" stroke="#000000" stroke-width="5" d="m 893.30668,223.75044 59.13943,-0.18834 0.18834,37.48008 -59.32777,0.37668 z" />
+            <path class="shop" data-title="16" data-photo="/images/kar.png" data-text="" stroke="#000000" stroke-width="5" d="m 827.30168,223.47267 h 61.66141 l 0.53271,37.68937 -62.59365,0.26636 z" />
+            <path class="shop" data-title="17" data-photo="/images/kar.png" data-text="" stroke="#000000" stroke-width="5" d="m 749.22496,230.7191 10.17047,-7.157 63.65964,0.18834 0.37668,50.28735 -62.90627,0.18834 0.37669,11.48887 h -11.30053 z" />
+            <path class="shop" data-title="18" data-photo="/images/kar.png" data-text="" stroke="#000000" stroke-width="5" d="m 619.64558,236.5577 h 86.26069 l 8.66374,7.91037 -0.37669,41.05859 -10.92384,-0.37669 v 51.22906 l -94.54775,24.48447 -0.37668,-58.38605 h 10.17047 z" />
+            <path class="shop" data-title="19" data-photo="/images/kar.png" data-text="" stroke="#000000" stroke-width="5" d="m 558.62273,236.18102 55.56093,0.18834 0.37668,62.34124 h -56.69098 z" />
+            <path class="shop" data-title="20" data-photo="/images/kar.png" data-text="" stroke="#000000" stroke-width="5" d="m 492.3263,236.5577 61.77622,0.18835 0.75337,66.29642 48.96895,-0.37668 0.67006,57.98021 -7.59114,1.73131 0.32911,44.63001 -37.48009,0.18835 V 362.1819 l -66.67311,0.56502 z" />
+            <path class="shop" data-title="21" data-photo="/images/kar.png" data-text="" stroke="#000000" stroke-width="5" d="m 423.76977,297.58055 -0.37668,-69.3099 64.03632,-7.157 v 76.84359 z" />
+            <path class="shop" data-title="22" data-photo="/images/kar.png" data-text="" stroke="#000000" stroke-width="5" d="M 385.34798,299.08729 V 229.4007 l 32.01816,-0.56502 0.75337,70.25161 z" />
+            <path class="shop" data-title="23" data-photo="/images/kar.png" data-text="" stroke="#000000" stroke-width="5" d="m 384.9713,304.17253 102.45811,0.56502 0.18834,55.56093 -80.79877,0.37668 -0.18834,-19.39924 -21.65934,0.56503 z" />
+            <path class="shop" data-title="24" data-photo="/images/kar.png" data-text="" stroke="#000000" stroke-width="5" d="m 357.285,345.98448 h 39.74019 l 0.56503,61.39953 -40.87024,0.18834 z" />
+            <path class="shop" data-title="25" data-photo="/images/kar.png" data-text="" stroke="#000000" stroke-width="5" d="m 351.25806,351.4464 -0.56503,-59.32777 -52.17077,-0.37668 V 335.814 Z" />
+            <path class="shop" data-title="26" data-photo="/images/kar.png" data-text="" stroke="#000000" stroke-width="5" d="m 298.3187,234.12691 52.73848,0.53271 -0.26635,50.07492 -52.47213,0.79907 z" />
+            <path class="shop" data-title="27" data-photo="/images/kar.png" data-text="" stroke="#000000" stroke-width="5" d="m 252.23911,234.65962 40.21976,-0.79907 -0.53271,98.55172 -39.9534,-15.98136 z" />
+            <path class="shop" data-title="28" data-photo="/images/kar.png" data-text="" stroke="#000000" stroke-width="5" d="m 209.88851,234.39326 36.49077,-0.53271 v 80.97222 l -36.49077,-22.64026 z" />
+            <path class="shop" data-title="29" data-photo="/images/kar.png" data-text="" stroke="#000000" stroke-width="5" d="m 180.43175,232.41418 h 22.60106 l 0.37668,57.44434 -46.89719,-35.40831 z" />
+            <path class="shop" data-title="30" data-photo="/images/kar.png" data-text="" stroke="#000000" stroke-width="5" d="m 132.7812,160.27914 38.79847,37.29174 -38.42179,37.29174 -38.610135,-36.72671 z" />
+            <path class="shop" data-title="31" data-photo="/images/kar.png" data-text="" stroke="#000000" stroke-width="5" d="m 49.345636,126.56591 50.271501,-0.0468 29.020533,32.25332 -36.161689,33.14821 z" />
+            <path class="shop" data-title="32" data-photo="/images/kar.png" data-text="" stroke="#000000" stroke-width="5" d="M 9.417106,26.744581 H 97.184534 L 98.314587,118.27885 46.332162,119.03222 28.251318,76.466901 9.0404218,76.090217 Z" />
+            <path class="shop" data-title="33" data-photo="/images/kar.png" data-text="" stroke="#000000" stroke-width="5" d="m 103.21148,89.274165 7.157,-0.376684 10.54716,13.937319 59.13943,-53.489164 -18.83421,-21.471002 -58.00792,0.225922 z" />
+            <path class="shop" data-title="34" data-photo="/images/kar.png" data-text="" stroke="#000000" stroke-width="5" d="M 155.55189,134.50977 201.89783,92.691882 213.21796,103.21294 224.53809,92.958238 183.51927,53.00484 125.58685,107.20828 Z" />
+            <path class="shop" data-title="35" data-photo="/images/kar.png" data-text="" stroke="#000000" stroke-width="5" d="m 201.76466,98.951247 -43.01649,39.553863 41.95106,39.55386 43.81556,-39.55386 z" />
+            <path class="shop" data-title="36" data-photo="/images/kar.png" data-text="" stroke="#000000" stroke-width="5" d="m 245.84657,142.89998 -41.55153,37.42302 23.30615,23.5725 50.34128,-0.26635 10.2547,-22.64026 z" />
+            <path class="shop" data-title="37" data-photo="/images/kar.png" data-text="" stroke="#000000" stroke-width="5" d="m 306.62097,136.73638 -22.97774,30.51142 37.66843,36.16169 29.56971,-2.2601 -19.86747,-19.62779 -0.46613,-29.56551 z" />
+        </svg>
+    </div>
+    <div class="info__bg">
+        <div class="info">
+            <img class="info__photo" src="" alt="">
+            <h2 class="info__title">
+
+            </h2>
+            <p class="info__text">
+
+            </p>
+        </div>
+    </div>
+    <div class="tooltip"></div>
+    <script>
+        let shop = document.querySelectorAll('.shop');
+        let Bg = document.querySelector('.info__bg');
+        let photo = document.querySelector('.info__photo');
+        let title = document.querySelector('.info__title');
+        let text = document.querySelector('.info__text');
+        let tooltip = document.querySelector('.tooltip');
+
+        shop.forEach((item) => {
+            item.addEventListener('click', function() {
+                title.textContent = this.getAttribute('data-title');
+                photo.setAttribute('src', this.getAttribute('data-photo'));
+                text.textContent = this.getAttribute('data-text');
+                Bg.classList.add('active');
+            });
+
+            item.addEventListener('mouseenter', function() {
+                tooltip.textContent = item.getAttribute('data-title');
+                tooltip.style.display = 'block';
+            });
+
+            item.addEventListener('mouseleave', function() {
+                tooltip.textContent = item.getAttribute('data-title');
+                tooltip.style.display = 'none';
+            });
+
+            item.addEventListener('mousemove', function(e) {
+                tooltip.style.top = (e.y + 20) + 'px';
+                tooltip.style.left = (e.x + 20) + 'px';
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if(e.target === Bg) {
+                Bg.classList.remove('active');
+            }
+        });
+    </script>
+
+    </body>
+</html>
