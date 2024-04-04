@@ -1,4 +1,4 @@
-name: Python_pipeline
+name: Java_pipeline
 
 on:
   push:
@@ -19,5 +19,5 @@ jobs:
 
       - name: Check style project
         run: |
-          java -jar checkstyle-10.15.0-all.jar
-          -c /sun_checks.xml adminController.java
+          wget https://github.com/checkstyle/checkstyle/releases/download/checkstyle-8.44/checkstyle-8.44-all.jar
+          java -jar checkstyle-8.44-all.jar -c path/to/checkstyle.xml .
